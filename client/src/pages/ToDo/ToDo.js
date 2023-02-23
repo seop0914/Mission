@@ -9,12 +9,19 @@ function ToDo() {
             id: 1,
             title: "리엑트 공부하기",
             content: "더욱 공부한다!",
+            complete: false,
+        },
+        {
+            id: 2,
+            title: "리엑트 공부하기!!!!!!!!",
+            content: "!!!!",
+            complete: true,
         },
     ]);
     return (
         <FullPage>
             <h1>To Do List</h1>
-            <ToDoList todolist={todolist} />
+            <ToDoList todolist={todolist} setTodolist={setTodolist} />
             <AddToDo todolist={todolist} setTodolist={setTodolist} />
         </FullPage>
     );

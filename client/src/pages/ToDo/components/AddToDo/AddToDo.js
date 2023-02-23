@@ -17,7 +17,17 @@ function AddToDo({ todolist, setTodolist }) {
         setContent(e.target.value);
     };
     const onClickAddButton = () => {
-        setTodolist([...todolist, { id: todolist.length + 1, title, content }]);
+        setTodolist([
+            ...todolist,
+            {
+                id: todolist[todolist.length - 1].id + 1,
+                title,
+                content,
+                complete: false,
+            },
+        ]);
+        setTitle("");
+        setContent("");
         setAdd(false);
     };
 
