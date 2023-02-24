@@ -40,28 +40,30 @@ function ToDo({ todo, changeComplete, editTodo, deleteTodo }) {
         deleteTodo(todo.id);
     };
     return (
-        <Layout onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
+        <S.Layout onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
             {edit ? (
-                <EditForm>
-                    <Input
+                <S.EditForm>
+                    <S.Input
                         onChange={onChangeTitle}
                         type="text"
                         placeholder="작업이름"
                         value={title}
                     />
-                    <Input
+                    <S.Input
                         onChange={onChangeContent}
                         type="text"
                         placeholder="설명"
                         value={content}
                     />
-                    <ButtonDiv>
-                        <CancelButton onClick={changeEdit}>취소</CancelButton>
-                        <AddButton onClick={onClickEditButton}>
+                    <S.ButtonDiv>
+                        <S.CancelButton onClick={changeEdit}>
+                            취소
+                        </S.CancelButton>
+                        <S.AddButton onClick={onClickEditButton}>
                             작업 수정
-                        </AddButton>
-                    </ButtonDiv>
-                </EditForm>
+                        </S.AddButton>
+                    </S.ButtonDiv>
+                </S.EditForm>
             ) : (
                 <>
                     {todo.complete ? (
@@ -93,7 +95,7 @@ function ToDo({ todo, changeComplete, editTodo, deleteTodo }) {
                     </div>
                 </>
             )}
-        </Layout>
+        </S.Layout>
     );
 }
 const Layout = styled.div`
@@ -187,8 +189,14 @@ const AddButton = styled.button`
     }
 `;
 const S = {
+    Layout,
     TrueButton,
     FalseButton,
     ButtonGroup,
+    EditForm,
+    Input,
+    ButtonDiv,
+    CancelButton,
+    AddButton,
 };
 export default ToDo;

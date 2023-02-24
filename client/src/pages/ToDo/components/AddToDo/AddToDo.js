@@ -17,55 +17,68 @@ function AddToDo({ todolist, setTodolist }) {
         setContent(e.target.value);
     };
     const onClickAddButton = () => {
-        setTodolist([
-            ...todolist,
-            {
-                id: todolist[todolist.length - 1].id + 1,
-                title,
-                content,
-                complete: false,
-            },
-        ]);
+        if (todolist.length === 0) {
+            setTodolist([
+                {
+                    id: 1,
+                    title,
+                    content,
+                    complete: false,
+                },
+            ]);
+        } else {
+            setTodolist([
+                ...todolist,
+                {
+                    id: todolist[todolist.length - 1].id + 1,
+                    title,
+                    content,
+                    complete: false,
+                },
+            ]);
+        }
         setTitle("");
         setContent("");
         setAdd(false);
     };
 
     return (
-        <Layout>
+        <S.Layout>
             {add ? (
-                <AddForm>
-                    <Input
+                <S.AddForm>
+                    <S.Input
                         onChange={onChangeTitle}
                         type="text"
                         placeholder="작업이름"
                     />
-                    <Input
+                    <S.Input
                         onChange={onChangeContent}
                         type="text"
                         placeholder="설명"
                     />
-                    <ButtonDiv>
-                        <CancelButton onClick={onChangeAdd}>취소</CancelButton>
-                        <AddButton onClick={onClickAddButton}>
+                    <S.ButtonDiv>
+                        <S.CancelButton onClick={onChangeAdd}>
+                            취소
+                        </S.CancelButton>
+                        <S.AddButton onClick={onClickAddButton}>
                             작업 추가
-                        </AddButton>
-                    </ButtonDiv>
-                </AddForm>
+                        </S.AddButton>
+                    </S.ButtonDiv>
+                </S.AddForm>
             ) : (
-                <PlusButton type="button" onClick={onChangeAdd}>
+                <S.PlusButton type="button" onClick={onChangeAdd}>
                     <BsPlus />
                     <p>작업추가</p>
-                </PlusButton>
+                </S.PlusButton>
             )}
-        </Layout>
+        </S.Layout>
     );
 }
 const Layout = styled.div`
     margin-top: 20px;
 `;
 const AddForm = styled.div`
-    width: 700px;
+    width: 910px;
     border: 1px solid hsla(220, 9%, 46%, 0.3);
     border-radius: 10px;
     padding: 10px;
@@ -124,5 +137,15 @@ const PlusButton = styled.button`
         color: #7828a3;
     }
 `;
+
+const S = {
+    Layout,
+    AddForm,
+    Input,
+    ButtonDiv,
+    CancelButton,
+    AddButton,
+    PlusButton,
+};
 
 export default AddToDo;

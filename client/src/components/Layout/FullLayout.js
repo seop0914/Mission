@@ -10,11 +10,11 @@ const FullLayout = () => {
     return (
         <>
             <LayoutHeader />
-            <MainStyle>
+            <S.MainStyle>
                 <LeftSide />
                 <Outlet />
                 <RightSide />
-            </MainStyle>
+            </S.MainStyle>
             <LayoutFooter />
         </>
     );
@@ -25,5 +25,8 @@ const MainStyle = styled.div`
     margin: 100px auto 0;
     display: flex;
 `;
+const S = {
+    MainStyle,
+};
 
 export default FullLayout;

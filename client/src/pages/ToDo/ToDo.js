@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import AddToDo from "./components/AddToDo/AddToDo";
 import ToDoList from "./components/ToDoList/ToDoList";
+import { CiMemoPad } from "react-icons/ci";
 
 function ToDo() {
     const [todolist, setTodolist] = useState([
@@ -19,14 +20,32 @@ function ToDo() {
         },
     ]);
     return (
-        <FullPage>
-            <h1>To Do List</h1>
+        <S.FullPage>
+            <S.Title>
+                <CiMemoPad />
+                <h1>To Do List</h1>
+            </S.Title>
             <ToDoList todolist={todolist} setTodolist={setTodolist} />
             <AddToDo todolist={todolist} setTodolist={setTodolist} />
-        </FullPage>
+        </S.FullPage>
     );
 }
 const FullPage = styled.div`
     width: 1280px;
 `;
+const Title = styled.div`
+    font-weight: bold;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    & > h1 {
+        margin-left: 10px;
+    }
+`;
+
+const S = {
+    FullPage,
+    Title,
+};
 export default ToDo;
