@@ -29,8 +29,8 @@ function ToDo({ todo, changeComplete, editTodo, deleteTodo }) {
     const onClickEditButton = () => {
         const updateTodo = {
             id: todo.id,
-            title: title,
-            content: content,
+            title,
+            content,
             complete: todo.complete,
         };
         editTodo(updateTodo);

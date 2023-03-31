@@ -8,8 +8,7 @@ import axios from "axios";
 function ToDo() {
     const [todolist, setTodolist] = useState([]);
     function getTodolist() {
-        axios.get("http://localhost:8000/todo/add").then().catch();
-        axios.get("http://localhost:8000/todo").then((res) => {
+        axios.get(`http://localhost:8000/todo`).then((res) => {
             setTodolist(res.data);
         });
     }

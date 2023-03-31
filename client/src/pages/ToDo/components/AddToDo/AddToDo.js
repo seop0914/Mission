@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { BsPlus } from "react-icons/bs";
 import styled from "styled-components";
@@ -17,26 +18,20 @@ function AddToDo({ todolist, setTodolist }) {
         setContent(e.target.value);
     };
     const onClickAddButton = () => {
-        if (todolist.length === 0) {
-            setTodolist([
-                {
-                    id: 1,
-                    title,
-                    content,
-                    complete: false,
-                },
-            ]);
-        } else {
-            setTodolist([
-                ...todolist,
-                {
-                    id: todolist[todolist.length - 1].id + 1,
-                    title,
-                    content,
-                    complete: false,
-                },
-            ]);
-        }
+        const data = {
+            title,
+            content,
+            complete: false,
+        };
+        axios
+            .put(`http://localhost:8000/todo/add`, data)
+            .then((res) => {
+                const afterData = res.data;
+                setTodolist([...todolist, afterData]);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
         setTitle("");
         setContent("");
         setAdd(false);
