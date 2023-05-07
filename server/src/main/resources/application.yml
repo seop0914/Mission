@@ -6,6 +6,8 @@ log4jdbc:
   spylogdelegator:
     name: net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
 spring:
+  session:
+    store-type: redis
   datasource:
     hikari:
       driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
@@ -13,12 +15,17 @@ spring:
       username: hr
       password: hr
   jpa:
+    database-platform: org.hibernate.dialect.Oracle10gDialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     properties:
       hibernate:
         dialect: org.hibernate.dialect.Oracle10gDialect
         #        show_sql: true
         format_sql: true
+  output:
+    ansi:
+    enabled: always
+
 logging.level:
   org.hibernate.SQL: debug

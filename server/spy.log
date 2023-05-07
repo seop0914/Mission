@@ -1,0 +1,1 @@
+1683461278059|17|statement|connection 0|url jdbc:p6spy:oracle:thin:@localhost:1521:XE|select * from all_sequences|select * from all_sequences
