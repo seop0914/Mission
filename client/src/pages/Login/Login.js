@@ -1,9 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
 import styled from "styled-components";
+import axios from "axios";
 
 const Login = () => {
+    const [id, setId] = useState();
+    const [password, setPassword] = useState();
+    const [loginFail, setLoginFail] = useState(false);
+
+    const onChangeId = (e) => {
+        setId(e.target.value);
+    };
+    const onChangePassword = (e) => {
+        setPassword(e.target.value);
+    };
+    const login = () => {
+        const data = {
+            memberIdentification: id,
+            memberPassword: password,
+        };
+        axios
+            .post("http://localhost:8000/member/login", data)
+            .then((res) => {
+                if (res.data) {
+                    setLoginFail(false);
+                    window.location.href = "/";
+                    console.log(res.data);
+                } else {
+                    console.log(res.data);
+                    setLoginFail(true);
+                }
+            })
+            .catch((err) => {
+                setLoginFail(true);
+                console.log(err);
+            });
+    };
+
     return (
         <S.FullPage>
             <Link>
@@ -28,17 +62,30 @@ const Login = () => {
             <S.MissionLogin>
                 <S.Input>
                     <label for="id">아이디</label>
-                    <input id="id" />
+                    <input type="text" id="id" onChange={onChangeId} />
                 </S.Input>
                 <S.Input>
                     <label for="password">비밀번호</label>
-                    <input id="password" />
+                    <input
+                        type="password"
+                        id="password"
+                        onChange={onChangePassword}
+                    />
                 </S.Input>
+                {loginFail ? (
+                    <S.ErrorMsg>
+                        아이디 혹은 비밀번호가 일치하지 않습니다.
+                    </S.ErrorMsg>
+                ) : (
+                    <></>
+                )}
                 <S.FindAccount>
                     <S.FindAccountLink>계정 찾기</S.FindAccountLink>
                 </S.FindAccount>
                 <S.LoginButton>
-                    <button>로그인</button>
+                    <button type="button" onClick={login}>
+                        로그인
+                    </button>
                 </S.LoginButton>
             </S.MissionLogin>
             <S.SignUp>
@@ -131,6 +178,12 @@ const Input = styled.div`
         box-sizing: border-box;
     }
 `;
+const ErrorMsg = styled.p`
+    margin-top: 10px;
+    font-weight: 700;
+    font-size: 12px;
+    color: #f24405;
+`;
 const FindAccount = styled.div`
     margin-top: 20px;
     display: flex;
@@ -187,6 +240,7 @@ const S = {
     CenterLine,
     MissionLogin,
     Input,
+    ErrorMsg,
     FindAccount,
     FindAccountLink,
     LoginButton,

@@ -31,7 +31,7 @@ public class MemberController {
         return memberService.nicknameCheck(memberNickname);
     }
     @PostMapping("/login")
-    public RedirectView login(MemberDTO memberDTO, HttpSession session) {
+    public Member login(@RequestBody MemberDTO memberDTO, HttpSession session) {
         // session.setAttribute("memberId", memberService.login(memberIdentification, memberPassword));
         Member memberLogin = memberService.login(memberDTO.getMemberIdentification(), memberDTO.getMemberPassword());
         Optional.ofNullable(memberService.login(memberDTO.getMemberIdentification(),
@@ -42,7 +42,7 @@ public class MemberController {
                     session.setAttribute("id", member.getMemberId());
                     session.setMaxInactiveInterval(1800); //세션 유효 시간: 초 단위, 0또는 -1일 경우 세션 무한 유지
                 }, () -> {throw new LoginFailedException();});
-        return new RedirectView("http://localhost:3000");
+        return memberLogin;
     }
     @GetMapping("/logout")
     public RedirectView logout(HttpSession session) {

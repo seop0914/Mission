@@ -52,11 +52,9 @@ const SignUp = () => {
             .then((res) => {
                 if (res.data) {
                     setIdCheck(false);
-                    console.log(res.data);
                     return false;
                 } else {
                     setIdCheck(true);
-                    console.log(res.data);
                     return true;
                 }
             })
@@ -109,7 +107,7 @@ const SignUp = () => {
                 .put(`http://localhost:8000/member/join`, data)
                 .then((res) => {
                     if (res) {
-                        window.location.href = "/";
+                        window.location.href = "/login";
                     }
                 })
                 .catch((err) => {
