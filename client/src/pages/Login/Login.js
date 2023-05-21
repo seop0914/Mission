@@ -43,7 +43,7 @@ const Login = () => {
             </S.MissionLogin>
             <S.SignUp>
                 <p>아직 회원이 아니신가요?</p>
-                <S.SignUpLink>회원가입</S.SignUpLink>
+                <S.SignUpLink to={"/signup"}>회원가입</S.SignUpLink>
             </S.SignUp>
         </S.FullPage>
     );
@@ -174,7 +174,7 @@ const SignUpLink = styled(Link)`
     text-decoration: underline;
 
     &:hover {
-        background-color: #7828a3;
+        color: #7828a3;
     }
 `;
 

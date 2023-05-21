@@ -29,7 +29,6 @@ public class Member {
     @NotNull
     private String memberPassword;
     @NotNull
-    @Column(unique = true)
     private String memberEmail;
     @NotNull
     @Column(unique = true)
