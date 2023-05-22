@@ -45,8 +45,7 @@ public class MemberController {
         return memberLogin;
     }
     @GetMapping("/logout")
-    public RedirectView logout(HttpSession session) {
+    public void logout(HttpSession session) {
         session.invalidate();
-        return new RedirectView("http://localhost:3000");
     }
 }

@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
 import styled from "styled-components";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 const Login = () => {
+    const [cookies, setCookies] = useCookies(["member"]);
+
     const [id, setId] = useState();
     const [password, setPassword] = useState();
     const [loginFail, setLoginFail] = useState(false);
@@ -25,6 +28,7 @@ const Login = () => {
             .then((res) => {
                 if (res.data) {
                     setLoginFail(false);
+                    setCookies("member", res.data, { path: "/" });
                     window.location.href = "/";
                     console.log(res.data);
                 } else {

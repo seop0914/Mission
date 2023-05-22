@@ -48,7 +48,7 @@ function ToDoList({ todolist, setTodolist }) {
                 ))
             ) : (
                 <S.NoneToDo>
-                    <h1>아래 '작업 추가' 버튼으로 할 일을 추가해주세요!</h1>
+                    <h1>아래 '작업 추가' 버튼으로 할 일을 추가해보세요!</h1>
                 </S.NoneToDo>
             )}
         </S.Layout>

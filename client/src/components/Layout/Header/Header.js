@@ -1,9 +1,30 @@
 import React from "react";
+import axios from "axios";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { BiSearch } from "react-icons/bi";
+import { BiSearch, BiBell } from "react-icons/bi";
+import { BsPersonCircle, BsBookmark } from "react-icons/bs";
+import { useCookies } from "react-cookie";
 
 function LayoutHeader() {
+    const [cookies, setCookies, removeCookies] = useCookies(["member"]);
+    const [myMenuCheck, setMyMenuCheck] = useState(false);
+
+    const onChangeMyMenuCheck = () => {
+        setMyMenuCheck(!myMenuCheck);
+    };
+    const logout = () => {
+        axios
+            .get("http://localhost:8000/member/logout")
+            .then((res) => {
+                removeCookies("member");
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
+
     return (
         <S.Header>
             <S.Nav>
@@ -24,10 +45,35 @@ function LayoutHeader() {
                         </button>
                     </Search>
                 </S.Center>
-                <S.LoginSignUpDiv>
-                    <S.LoginLink to={"/login"}>로그인</S.LoginLink>
-                    <S.SignUpLink to={"/signup"}>회원가입</S.SignUpLink>
-                </S.LoginSignUpDiv>
+                {cookies.member ? (
+                    <S.MyMenuDiv>
+                        <button>
+                            <BsBookmark />
+                        </button>
+                        <button>
+                            <BiBell />
+                        </button>
+                        <button onClick={onChangeMyMenuCheck}>
+                            <BsPersonCircle />
+                        </button>
+                        {myMenuCheck ? (
+                            <ToggleMenuDiv>
+                                <S.ToggleLink>내 프로필</S.ToggleLink>
+                                <S.ToggleLink>내 계정</S.ToggleLink>
+                                <S.ToggleLink>활동내역</S.ToggleLink>
+                                <div></div>
+                                <button onClick={logout}>로그아웃</button>
+                            </ToggleMenuDiv>
+                        ) : (
+                            ""
+                        )}
+                    </S.MyMenuDiv>
+                ) : (
+                    <S.LoginSignUpDiv>
+                        <S.LoginLink to={"/login"}>로그인</S.LoginLink>
+                        <S.SignUpLink to={"/signup"}>회원가입</S.SignUpLink>
+                    </S.LoginSignUpDiv>
+                )}
             </S.Nav>
         </S.Header>
     );
@@ -105,6 +151,65 @@ const Search = styled.div`
         color: #9d3fd0;
     }
 `;
+const MyMenuDiv = styled.div`
+    position: relative;
+    display: flex;
+    margin-left: 20px;
+    & > button {
+        background-color: inherit;
+        border: inherit;
+        font-size: 22px;
+        margin-left: 10px;
+        color: hsla(220, 9%, 46%, 0.7);
+        align-items: center;
+        cursor: pointer;
+    }
+    & > button:hover {
+        color: #9d3fd0;
+    }
+`;
+const ToggleMenuDiv = styled.div`
+    position: absolute;
+    right: 0;
+    top: 30px;
+    display: flex;
+    width: 200px;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 100;
+    background-color: #fff;
+    border: 1px solid hsla(220, 9%, 46%, 0.3);
+    border-radius: 10px;
+
+    & > div {
+        margin-top: 20px;
+        weight: 100%;
+        border-top: 1px solid hsla(220, 9%, 46%, 0.3);
+    }
+
+    & > button {
+        text-decoration: none;
+        color: hsla(220, 9%, 46%, 0.7);
+        margin: 10px 0;
+        padding-left: 40px;
+        background-color: inherit;
+        border: 0px solid #fff;
+        text-align: left;
+        cursor: pointer;
+    }
+    & > button:hover {
+        color: #9d3fd0;
+    }
+`;
+const ToggleLink = styled(Link)`
+    text-decoration: none;
+    color: hsla(220, 9%, 46%, 0.7);
+    margin-top: 20px;
+    padding-left: 40px;
+    &:hover {
+        color: #9d3fd0;
+    }
+`;
 const LoginSignUpDiv = styled.div`
     display: flex;
 `;
@@ -147,6 +252,9 @@ const S = {
     Center,
     Menu,
     MenuLink,
+    MyMenuDiv,
+    ToggleMenuDiv,
+    ToggleLink,
     LoginSignUpDiv,
     LoginLink,
     SignUpLink,
