@@ -1,39 +1,44 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 import { BsPlus } from "react-icons/bs";
 import styled from "styled-components";
 
 function AddToDo({ todolist, setTodolist }) {
     const [add, setAdd] = useState(false);
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
+    const [todoTitle, setTodoTitle] = useState("");
+    const [todoContent, setTodoContent] = useState("");
+    const [cookies] = useCookies(["member"]);
 
     const onChangeAdd = () => {
         setAdd(!add);
     };
     const onChangeTitle = (e) => {
-        setTitle(e.target.value);
+        setTodoTitle(e.target.value);
     };
     const onChangeContent = (e) => {
-        setContent(e.target.value);
+        setTodoContent(e.target.value);
     };
     const onClickAddButton = () => {
         const data = {
-            title,
-            content,
-            complete: false,
+            todoTitle,
+            todoContent,
+            todoComplete: false,
+            memberId: cookies.member.memberId,
         };
+
         axios
             .put(`http://localhost:8000/todo/add`, data)
             .then((res) => {
                 const afterData = res.data;
                 setTodolist([...todolist, afterData]);
+                console.log("성공!!!!!!!!!");
             })
             .catch((err) => {
                 console.error(err);
             });
-        setTitle("");
-        setContent("");
+        setTodoTitle("");
+        setTodoContent("");
         setAdd(false);
     };
 

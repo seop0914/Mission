@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { MdCheckCircleOutline, MdCheckCircle } from "react-icons/md";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { useCookies } from "react-cookie";
 
 function ToDo({ todo, changeComplete, editTodo, deleteTodo }) {
+    const [cookies] = useCookies(["member"]);
     const [hover, setHover] = useState(false);
     const [edit, setEdit] = useState(false);
-    const [title, setTitle] = useState(todo.title);
-    const [content, setContent] = useState(todo.content);
+    const [todoTitle, setTodoTitle] = useState(todo.todoTitle);
+    const [todoContent, setTodoContent] = useState(todo.todoContent);
     const onChangeComplete = () => {
-        changeComplete(todo.id);
+        changeComplete(todo.todoId);
     };
     const onMouseOver = () => {
         setHover(true);
@@ -21,23 +23,25 @@ function ToDo({ todo, changeComplete, editTodo, deleteTodo }) {
         setEdit(!edit);
     };
     const onChangeTitle = (e) => {
-        setTitle(e.target.value);
+        setTodoTitle(e.target.value);
     };
     const onChangeContent = (e) => {
-        setContent(e.target.value);
+        setTodoContent(e.target.value);
     };
     const onClickEditButton = () => {
         const updateTodo = {
-            id: todo.id,
-            title,
-            content,
-            complete: todo.complete,
+            todoId: todo.todoId,
+            todoTitle,
+            todoContent,
+            todoComplete: todo.todoComplete,
+            memberId: cookies.member.memberId,
         };
+        console.log(cookies.member.memberId);
         editTodo(updateTodo);
         setEdit(false);
     };
     const onClickDeleteTodo = () => {
-        deleteTodo(todo.id);
+        deleteTodo(todo.todoId);
     };
     return (
         <S.Layout onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
@@ -47,13 +51,13 @@ function ToDo({ todo, changeComplete, editTodo, deleteTodo }) {
                         onChange={onChangeTitle}
                         type="text"
                         placeholder="작업이름"
-                        value={title}
+                        value={todoTitle}
                     />
                     <S.Input
                         onChange={onChangeContent}
                         type="text"
                         placeholder="설명"
-                        value={content}
+                        value={todoContent}
                     />
                     <S.ButtonDiv>
                         <S.CancelButton onClick={changeEdit}>
@@ -66,7 +70,7 @@ function ToDo({ todo, changeComplete, editTodo, deleteTodo }) {
                 </S.EditForm>
             ) : (
                 <>
-                    {todo.complete ? (
+                    {todo.todoComplete ? (
                         <S.TrueButton onClick={onChangeComplete}>
                             <MdCheckCircle />
                         </S.TrueButton>
@@ -76,8 +80,8 @@ function ToDo({ todo, changeComplete, editTodo, deleteTodo }) {
                         </S.FalseButton>
                     )}
                     <div>
-                        <h1>{todo.title}</h1>
-                        <p>{todo.content}</p>
+                        <h1>{todo.todoTitle}</h1>
+                        <p>{todo.todoContent}</p>
                     </div>
                     <div>
                         {hover ? (
@@ -136,6 +140,7 @@ const FalseButton = styled.button`
 const ButtonGroup = styled.div`
     position: absolute;
     right: 5%;
+    z-index: 0;
     & > button {
         font-size: 25px;
         color: #9d3fd0;

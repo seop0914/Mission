@@ -6,31 +6,36 @@ import lombok.NoArgsConstructor;
 import lombok.Builder;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter
-@Table(name = "TODO")
+@Table(name = "todo")
 @NoArgsConstructor
 public class Todo {
     @Id
     @GeneratedValue
-    private Long id;
+    private Long todoId;
     @NotNull
-    private String title;
+    private String todoTitle;
     @NotNull
-    private String content;
+    private String todoContent;
     @NotNull
-    private boolean complete;
+    private boolean todoComplete;
+
+    @JoinColumn(name = "memberId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member member;
+
+    public void changeMember(Member member) {
+        this.member = member;
+    }
 
     @Builder
-    public Todo(Long id, String title, String content, boolean complete) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.complete = complete;
+    public Todo(Long todoId, String todoTitle, String todoContent, boolean todoComplete) {
+        this.todoId = todoId;
+        this.todoTitle = todoTitle;
+        this.todoContent = todoContent;
+        this.todoComplete = todoComplete;
     }
 }

@@ -11,6 +11,8 @@ function LayoutHeader() {
     const [cookies, setCookies, removeCookies] = useCookies(["member"]);
     const [myMenuCheck, setMyMenuCheck] = useState(false);
 
+    console.log(cookies.member);
+
     const onChangeMyMenuCheck = () => {
         setMyMenuCheck(!myMenuCheck);
     };
@@ -180,6 +182,7 @@ const ToggleMenuDiv = styled.div`
     background-color: #fff;
     border: 1px solid hsla(220, 9%, 46%, 0.3);
     border-radius: 10px;
+    z-index: 100;
 
     & > div {
         margin-top: 20px;

@@ -1,5 +1,6 @@
 package com.example.mission.domain;
 
+import com.example.mission.entity.Member;
 import com.example.mission.entity.Todo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,17 +10,25 @@ import org.springframework.stereotype.Component;
 @Data
 @NoArgsConstructor
 public class TodoDTO {
-    private Long id;
-    private String title;
-    private String content;
-    private boolean complete;
+    private Long todoId;
+    private String todoTitle;
+    private String todoContent;
+    private boolean todoComplete;
+    private Long memberId;
 
     public Todo toEntity() {
         return Todo.builder()
-                .id(id)
-                .title(title)
-                .content(content)
-                .complete(complete)
+                .todoId(todoId)
+                .todoTitle(todoTitle)
+                .todoContent(todoContent)
+                .todoComplete(todoComplete)
                 .build();
+    }
+    public TodoDTO(Todo todo) {
+        todoId = todo.getTodoId();
+        todoTitle = todo.getTodoTitle();
+        todoContent = todo.getTodoContent();
+        todoComplete = todo.isTodoComplete();
+        memberId = todo.getMember().getMemberId();
     }
 }

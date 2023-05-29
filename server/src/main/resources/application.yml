@@ -6,8 +6,6 @@ log4jdbc:
   spylogdelegator:
     name: net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
 spring:
-  session:
-    store-type: redis
   datasource:
     hikari:
       driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy

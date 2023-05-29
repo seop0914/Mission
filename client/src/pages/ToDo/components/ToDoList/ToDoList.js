@@ -3,9 +3,11 @@ import styled from "styled-components";
 import ToDo from "../ToDo/ToDo";
 
 function ToDoList({ todolist, setTodolist }) {
-    const changeComplete = (id) => {
-        const data = todolist.find((todo) => todo.id === id);
-        data.complete = !data.complete;
+    const changeComplete = (todoId) => {
+        const data = todolist.find((todo) => todo.todoId === todoId);
+        data.todoComplete = !data.todoComplete;
+        data.memberId = data.member.memberId;
+        console.log(data);
         axios.put(`http://localhost:8000/todo/update`, data).then((res) => {
             const newTodolist = [...todolist];
             setTodolist(newTodolist);
@@ -17,17 +19,21 @@ function ToDoList({ todolist, setTodolist }) {
             .then((res) => {
                 const data = res.data;
                 const newTodolist = [...todolist];
-                const todo = newTodolist.find((todo) => todo.id === data.id);
-                todo.title = data.title;
-                todo.content = data.content;
+                const todo = newTodolist.find(
+                    (todo) => todo.todoId === data.todoId
+                );
+                todo.todoTitle = data.todoTitle;
+                todo.todoContent = data.todoContent;
                 setTodolist(newTodolist);
             });
     };
-    const deleteTodo = (id) => {
+    const deleteTodo = (todoId) => {
         axios
-            .delete(`http://localhost:8000/todo/delete/${id}`)
+            .delete(`http://localhost:8000/todo/delete/${todoId}`)
             .then((res) => {
-                const newTodolist = todolist.filter((todo) => todo.id !== id);
+                const newTodolist = todolist.filter(
+                    (todo) => todo.todoId !== todoId
+                );
                 setTodolist(newTodolist);
             })
             .catch((err) => {

@@ -4,13 +4,25 @@ import AddToDo from "./components/AddToDo/AddToDo";
 import ToDoList from "./components/ToDoList/ToDoList";
 import { CiMemoPad } from "react-icons/ci";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 function ToDo() {
     const [todolist, setTodolist] = useState([]);
+    const [cookies] = useCookies(["member"]);
     function getTodolist() {
-        axios.get(`http://localhost:8000/todo`).then((res) => {
-            setTodolist(res.data);
-        });
+        axios
+            .get(`http://localhost:8000/todo`, {
+                params: {
+                    memberId: cookies.member.memberId,
+                },
+            })
+            .then((res) => {
+                setTodolist(res.data);
+                console.log(res.data);
+            })
+            .catch(() => {
+                console.log("Error!!!!!!!!!!!!!!");
+            });
     }
     useEffect(() => {
         getTodolist();

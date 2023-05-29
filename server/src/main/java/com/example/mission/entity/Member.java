@@ -9,13 +9,18 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.apachecommons.CommonsLog;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
 @Getter
-@Table(name = "MEMBER")
+@Data
+@Table(name = "member")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
     @Id
