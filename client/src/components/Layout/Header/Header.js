@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { BiSearch, BiBell } from "react-icons/bi";
 import { BsPersonCircle, BsBookmark } from "react-icons/bs";
@@ -17,10 +17,13 @@ function LayoutHeader() {
         setMyMenuCheck(!myMenuCheck);
     };
     const logout = () => {
+        removeCookies("member");
+        setMyMenuCheck(false);
         axios
             .get("http://localhost:8000/member/logout")
             .then((res) => {
                 removeCookies("member");
+                setMyMenuCheck(false);
             })
             .catch((err) => {
                 console.error(err);
@@ -36,9 +39,9 @@ function LayoutHeader() {
                 </S.LogoLink>
                 <S.Center>
                     <S.Menu>
-                        <S.MenuLink to={"/todo"}>To Do</S.MenuLink>
-                        <S.MenuLink to={"/community"}>커뮤니티</S.MenuLink>
-                        <S.MenuLink to={"/notice"}>공지사항</S.MenuLink>
+                        <S.MenuLink to="/todo">To Do</S.MenuLink>
+                        <S.MenuLink to="/community">커뮤니티</S.MenuLink>
+                        <S.MenuLink to="/notice">공지사항</S.MenuLink>
                     </S.Menu>
                     <Search>
                         <input type="text" placeholder="검색" />
@@ -85,6 +88,8 @@ const Header = styled.header`
     position: fixed;
     top: 0%;
     border-bottom: 1px solid hsla(220, 9%, 46%, 0.3);
+    background-color: #fff;
+    z-index: 100;
 `;
 const LogoLink = styled(Link)`
     text-decoration: none;
@@ -111,11 +116,14 @@ const Menu = styled.div`
     justify-content: space-between;
     font-size: 14px;
 `;
-const MenuLink = styled(Link)`
+const MenuLink = styled(NavLink)`
     margin-right: 30px;
     text-decoration: none;
     color: #000;
     &:hover {
+        color: #9d3fd0;
+    }
+    &.active {
         color: #9d3fd0;
     }
 `;
@@ -186,7 +194,7 @@ const ToggleMenuDiv = styled.div`
 
     & > div {
         margin-top: 20px;
-        weight: 100%;
+        width: 100%;
         border-top: 1px solid hsla(220, 9%, 46%, 0.3);
     }
 
