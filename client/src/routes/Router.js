@@ -6,6 +6,7 @@ import SignUp from "../pages/SignUp/SignUp";
 import ToDo from "../pages/ToDo/ToDo";
 import Community from "../pages/Community/Community";
 import Notice from "../pages/Notice/Notice";
+import AddPost from "../pages/AddPost/AddPost";
 
 function Router() {
     return (
@@ -15,6 +16,7 @@ function Router() {
                     <Route path="/" element={<Home />} />
                     <Route path="/todo" element={<ToDo />} />
                     <Route path="/community" element={<Community />} />
+                    <Route path="/community/new" element={<AddPost />} />
                     <Route path="/notice" element={<Notice />} />
                 </Route>
 
