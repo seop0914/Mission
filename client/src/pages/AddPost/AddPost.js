@@ -1,9 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useCookies } from "react-cookie";
+import axios from "axios";
 
 function AddPost() {
     const [cookies] = useCookies(["member"]);
+    const [postTitle, setPostTitle] = useState();
+    const [postContent, setPostContent] = useState();
+
+    const onChangeTitle = (e) => {
+        setPostTitle(e.target.value);
+    };
+    const onChangeContent = (e) => {
+        setPostContent(e.target.value);
+    };
+
+    const addPost = () => {
+        const data = {
+            postTitle,
+            postContent,
+            memberNickname: cookies.member.memberNickname,
+            postViews: 0,
+            postLikes: 0,
+            memberId: cookies.member.memberId,
+        };
+        axios
+            .put(`http://localhost:8000/community/add`, data)
+            .then((res) => {
+                console.log(res.data);
+                window.location.href = "/community";
+            })
+            .catch((err) => {
+                console.log("Error");
+            });
+    };
 
     return (
         <Layout>
@@ -15,7 +45,7 @@ function AddPost() {
                 </p>
             </S.AddPostText>
             <S.AddPostForm method="post">
-                <div>
+                {/* <div>
                     <S.Topic>
                         <h2>토픽</h2>
                         <S.TopicSelect>
@@ -24,21 +54,30 @@ function AddPost() {
                             <option value="Work">Work</option>
                         </S.TopicSelect>
                     </S.Topic>
-                </div>
+                </div> */}
                 <S.Title>
                     <h2>Title</h2>
-                    <input type="text" placeholder="Please enter a title." />
+                    <input
+                        type="text"
+                        onChange={onChangeTitle}
+                        placeholder="Please enter a title."
+                    />
                 </S.Title>
 
                 <S.Content>
                     <h2>Content</h2>
                     <div id="content-box">
-                        <textarea id="summernote"></textarea>
+                        <textarea
+                            id="summernote"
+                            onChange={onChangeContent}
+                        ></textarea>
                     </div>
 
                     <S.AddPostButton>
                         <S.CancelButton type="button">Cancel</S.CancelButton>
-                        <S.RegisterButton type="submit">Enter</S.RegisterButton>
+                        <S.RegisterButton type="button" onClick={addPost}>
+                            Enter
+                        </S.RegisterButton>
                     </S.AddPostButton>
                 </S.Content>
             </S.AddPostForm>

@@ -8,7 +8,7 @@ function Post({ post }) {
             <S.FirstLine>
                 <Link>
                     <S.ProfilePicture />
-                    <span>{post.memberIdentification}</span>
+                    <span>{post.memberNickname}</span>
                 </Link>
                 <span> ㆍ </span>
                 <span>{post.postRegisterDate}</span>

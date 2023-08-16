@@ -32,7 +32,7 @@ public class Todo {
     }
 
     @Builder
-    public Todo(Long todoId, String todoTitle, String todoContent, boolean todoComplete) {
+    public Todo(Long todoId, String todoTitle, String todoContent, Boolean todoComplete) {
         this.todoId = todoId;
         this.todoTitle = todoTitle;
         this.todoContent = todoContent;

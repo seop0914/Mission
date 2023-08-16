@@ -13,7 +13,7 @@ public class TodoDTO {
     private Long todoId;
     private String todoTitle;
     private String todoContent;
-    private boolean todoComplete;
+    private Boolean todoComplete;
     private Long memberId;
 
     public Todo toEntity() {

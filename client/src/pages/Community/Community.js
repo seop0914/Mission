@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import Post from "./components/Post/Post";
+import axios from "axios";
 
 function Community() {
     const [sortBox, setSortBox] = useState(false);
@@ -38,6 +39,19 @@ function Community() {
             postRegisterDate: "2023-05-05",
         },
     ]);
+    function getPostList() {
+        axios
+            .get(`http://localhost:8000/community`)
+            .then((res) => {
+                setPostList(res.data);
+            })
+            .catch(() => {
+                console.log("Error");
+            });
+    }
+    useEffect(() => {
+        getPostList();
+    }, []);
 
     const onChangeSortBox = () => {
         setSortBox(!sortBox);
