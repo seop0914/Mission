@@ -12,31 +12,31 @@ function Community() {
             postId: 1,
             postTitle: "게시물1 제목입니다.",
             postContent: "게시물1 내용입니다.",
-            memberIdentification: "aaa",
+            memberNickname: "aaa",
             postViews: 13,
             postCategory: "자유게시판",
             postLikes: 5,
-            postRegisterDate: "2023-05-01",
+            createdDate: "2023-05-01",
         },
         {
             postId: 2,
             postTitle: "게시물2 제목입니다.",
             postContent: "게시물2 내용입니다.",
-            memberIdentification: "bbb",
+            memberNickname: "bbb",
             postViews: 7,
             postCategory: "고민/상담",
             postLikes: 7,
-            postRegisterDate: "2023-05-05",
+            createdDate: "2023-05-05",
         },
         {
             postId: 3,
             postTitle: "게시물3 제목입니다.",
             postContent: "게시물3 내용입니다.",
-            memberIdentification: "ccc",
+            memberNickname: "ccc",
             postViews: 10,
             postCategory: "자유게시판",
             postLikes: 9,
-            postRegisterDate: "2023-05-05",
+            createdDate: "2023-05-05",
         },
     ]);
     function getPostList() {
@@ -45,8 +45,9 @@ function Community() {
             .then((res) => {
                 setPostList(res.data);
             })
-            .catch(() => {
+            .catch((err) => {
                 console.log("Error");
+                console.log(err);
             });
     }
     useEffect(() => {

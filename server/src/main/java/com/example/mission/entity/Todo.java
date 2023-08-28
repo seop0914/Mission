@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @Table(name = "todo")
 @NoArgsConstructor
-public class Todo {
+public class Todo extends Date {
     @Id
     @GeneratedValue
     private Long todoId;
@@ -21,7 +21,7 @@ public class Todo {
     @NotNull
     private String todoContent;
     @NotNull
-    private boolean todoComplete;
+    private Boolean todoComplete;
 
     @JoinColumn(name = "memberId")
     @ManyToOne(fetch = FetchType.LAZY)

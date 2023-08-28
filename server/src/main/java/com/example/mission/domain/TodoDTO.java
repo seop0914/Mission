@@ -28,7 +28,7 @@ public class TodoDTO {
         todoId = todo.getTodoId();
         todoTitle = todo.getTodoTitle();
         todoContent = todo.getTodoContent();
-        todoComplete = todo.isTodoComplete();
+        todoComplete = todo.getTodoComplete();
         memberId = todo.getMember().getMemberId();
     }
 }

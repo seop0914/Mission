@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @Table(name = "post")
 @NoArgsConstructor
-public class Post {
+public class Post extends Date {
     @Id
     @GeneratedValue
     private Long postId;
@@ -34,6 +34,10 @@ public class Post {
     @JoinColumn(name = "memberId")
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
+
+    public void changeMember(Member member) {
+        this.member = member;
+    }
 
     @Builder
     public Post(Long postId, String postTitle, String postContent, String memberNickname, Long postViews, Long postLikes){

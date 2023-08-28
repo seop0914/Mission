@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Component
 @Data
 @NoArgsConstructor
@@ -15,6 +18,9 @@ public class PostDTO {
     private String memberNickname;
     private Long postViews;
     private Long postLikes;
+    private Long memberId;
+    private LocalDateTime createdDate;
+    private LocalDateTime modifiedDate;
 
     public Post toEntity() {
         return Post.builder()
@@ -33,5 +39,8 @@ public class PostDTO {
         memberNickname = post.getMemberNickname();
         postViews = post.getPostViews();
         postLikes = post.getPostLikes();
+        memberId = post.getMember().getMemberId();
+        createdDate = post.getCreatedDate();
+        modifiedDate = post.getModifiedDate();
     }
 }

@@ -22,7 +22,7 @@ import java.util.List;
 @Data
 @Table(name = "member")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+public class Member extends Date {
     @Id
     @GeneratedValue
     private Long memberId;

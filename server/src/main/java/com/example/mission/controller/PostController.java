@@ -15,7 +15,7 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping("/community")
-    public List<Post> getPostList() {
+    public List<PostDTO> getPostList() {
         return postService.getPostList();
     }
     @PutMapping("/community/add")

@@ -3,6 +3,17 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 function Post({ post }) {
+    const date = new Date(post.createdDate);
+    const currentDate = new Date();
+    const formattedDate = date.toLocaleDateString();
+    const diffDateHour = (currentDate.getTime() - date.getTime()) / 3600000;
+    const diffDateMin = (currentDate.getTime() - date.getTime()) / 60000;
+    let printDate;
+
+    if (diffDateHour < 1) printDate = Math.floor(diffDateMin) + "분 전";
+    else if (diffDateHour < 24)
+        printDate = Math.floor(diffDateHour) + "시간 전";
+    else printDate = formattedDate;
     return (
         <S.Layout>
             <S.FirstLine>
@@ -11,7 +22,7 @@ function Post({ post }) {
                     <span>{post.memberNickname}</span>
                 </Link>
                 <span> ㆍ </span>
-                <span>{post.postRegisterDate}</span>
+                <span>{printDate}</span>
             </S.FirstLine>
             <S.SecondLine>
                 <Link>{post.postTitle}</Link>
