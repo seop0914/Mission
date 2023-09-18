@@ -35,7 +35,7 @@ function LayoutHeader() {
             <S.Nav>
                 <S.LogoLink to={"/"}>
                     <img src="" alt="" />
-                    <p>Mission</p>
+                    <h1>Mission</h1>
                 </S.LogoLink>
                 <S.Center>
                     <S.Menu>

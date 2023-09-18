@@ -25,7 +25,7 @@ function Post({ post }) {
                 <span>{printDate}</span>
             </S.FirstLine>
             <S.SecondLine>
-                <Link>{post.postTitle}</Link>
+                <Link to={`/post/${post.postId}`}>{post.postTitle}</Link>
             </S.SecondLine>
             <S.ThirdLine>
                 <S.CategoryLink>

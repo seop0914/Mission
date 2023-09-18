@@ -7,6 +7,7 @@ import ToDo from "../pages/ToDo/ToDo";
 import Community from "../pages/Community/Community";
 import Notice from "../pages/Notice/Notice";
 import AddPost from "../pages/AddPost/AddPost";
+import Post from "../pages/Post/Post";
 
 function Router() {
     return (
@@ -18,6 +19,7 @@ function Router() {
                     <Route path="/community" element={<Community />} />
                     <Route path="/community/new" element={<AddPost />} />
                     <Route path="/notice" element={<Notice />} />
+                    <Route path="/post/:postId" element={<Post />} />
                 </Route>
 
                 <Route path="/login" element={<Login />} />
